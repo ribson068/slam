@@ -1,0 +1,10 @@
+[workspace]
+restore_data_on_startup = True
+save_data_on_exit = True
+save_history = True
+save_non_project_files = False
+
+[main]
+version = 0.2.0
+recent_files = ['..\\.spyder-py3\\temp.py', 'slambook\\views.py', 'slam\\urls.py', 'manage.py', 'templates\\addquestion.html', 'templates\\base.html', 'templates\\index.html', 'slambook\\models.py', 'slambook\\admin.py', 'slam\\settings.py', 'templates\\char_tlist.html', 'slambook\\apps.py', 'templates\\slambook\\charactertemplate_form.html', 'usermanagement\\views.py', 'usermanagement\\urls.py', 'templates\\registration\\login.html', 'templates\\main.html', 'usermanagement\\models.py', 'slambook\\migrations\\0002_auto_20200619_1542.py', 'usermanagement\\forms.py', 'templates\\signup.html', 'templates\\cquestion_list.html', 'templates\\slambook\\cquestion_form.html', 'templates\\rcqt_list.html', 'slam\\wsgi.py', 'templates\\slams_list.html', 'templates\\slambook\\slams_form.html', 'templates\\list_slam.html', 'templates\\generateslam.html', 'slambook\\tests.py', 'templates\\list_user.html', 'templates\\inbox.html', 'templates\\sent.html', 'templates\\testajax.html', 'templates\\view_slam.html']
+

@@ -1,0 +1,34 @@
+{%extends "base.html"%}
+{% load static %}
+{%block base_block%}
+<script src="{% static 'js/jquery-persist.js' %}"></script>
+<script type="text/javascript">
+			jQuery(document).ready(function() {
+				jQuery('input,select,textarea').persist();
+			});
+		</script>
+<div class="d-flex flex-column justify-content-center" 
+        style="height: 500px;">
+<div class="d-flex justify-content-center">
+<form method="post">
+{%csrf_token%}
+
+
+<input class="form-control col-sm-12" style="display:initial !important" type="text" placeholder="Slam Name" name='slamname'>
+
+<input class="form-control col-sm-12" style="display:initial !important" type="text" name='templatename' placeholder="Template Name" value="{{template.cq_template}}">
+
+<input type="hidden" name="templateid" value="{{template.pk}}">
+<a href={% url 'charactertlist'%}><button type="button" class="btn btn-success col-sm-12">Select Template</button>
+</a>
+<button type="submit" class="btn btn-primary col-sm-12">Generate Slam</button>
+</form>
+</div>
+</div>
+{% if generate %}
+<script>
+
+location.href='{% url 'listslam' generate%}'
+</script>
+{%endif%}
+{%endblock%}
