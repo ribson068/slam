@@ -9,7 +9,21 @@
     </style> 
 <div class="container" style="height: 400px;overflow-y: scroll;">
 <ul class="list-group">
-{% for c in clist%}
+
+{% for c in clist.admin%}
+
+  <li  id="list{{c.pk}}" class="list-group-item list-group-item-action  listtemplate">
+   <div class="d-flex w-100 justify-content-between">
+   
+      <h5 class="mb-1">{{c.cquestion}}</h5>&nbsp;
+      <input type='hidden' value='{{c.pk}}' id='{{c.pk}}' class="user" name='userid' >
+      
+    </div>
+  </li>
+{%endfor%}
+
+
+{% for c in clist.normal%}
 
   <li  id="list{{c.pk}}" class="list-group-item list-group-item-action  listtemplate">
    <div class="d-flex w-100 justify-content-between">

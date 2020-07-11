@@ -23,7 +23,8 @@ from slambook.views import (test_ajax,Questions,base_t,index_t,
                             CreateSlams,EditSlamsName,delete_slams,
                             list_slam,delete_slam,add_slam,generate_slam,
                             list_user,send_slam,
-                            Inbox,Sent,delete_inbox,delete_sent,view_slam)
+                            Inbox,Sent,Response,delete_inbox,delete_sent
+                            ,view_slam,edit_slam,response_slam,view_response)
 
 from usermanagement import urls
 from django.contrib.auth.decorators import login_required
@@ -70,8 +71,12 @@ urlpatterns = [
     #INBOX RESPONSE and SENT
     url(r'^inbox/',login_required(Inbox.as_view()),name="inbox"),
     url(r'^sent/',login_required(Sent.as_view()),name="sent"),
+    url(r'^response/',login_required(Response.as_view()),name="response"),
     url(r'^deleteinbox/', delete_inbox,name="deleteinbox"),
     url(r'^deletesent/', delete_sent,name="deletesent"),
     url(r'^(?P<pk>\d+)/viewslam$',login_required(view_slam.as_view()),name="viewslam"),
+    url(r'^(?P<pk>\d+)/editslam$',login_required(edit_slam.as_view()),name="editslam"),
+    url(r'^responseslam/',response_slam,name="responseslam"),
+    url(r'^(?P<pk>\d+)/viewresponse$',login_required(view_response.as_view()),name="viewresponse"),
     
 ]

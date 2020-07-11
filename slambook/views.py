@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 
 from .models import (CharacterTemplate,CQuestion,
                      RCTemplateCQuestions,Slams,Slam,
-                     SlamChart)
+                     SlamChart,Answer)
 import json
 from django.views.decorators.csrf import csrf_exempt
 from django.urls import reverse_lazy
@@ -106,8 +106,14 @@ class cquestion_tlist(ListView):
     def get_queryset(self):
         # if 'pk' in self.kwargs:
         #     tid=self.kwargs['pk']
-        print(self.kwargs)
-        return CQuestion.objects.filter(user=self.request.user)
+        if self.request.user==User(pk=1):
+            queryset = { 
+                    'normal': CQuestion.objects.filter(user=self.request.user)}
+        else:
+            queryset = {'admin': CQuestion.objects.filter(user=User(pk=1)), 
+                    'normal': CQuestion.objects.filter(user=self.request.user)}
+        
+        return queryset
     
 
 class EditCQuestion(UpdateView):
@@ -290,7 +296,16 @@ class Sent(ListView):
     def get_queryset(self):
         return SlamChart.objects.filter(fr=self.request.user,is_fr=True).order_by('-date_time')
     
-    
+
+class Response(ListView):
+    template_name="response.html"
+    context_object_name="clist"
+    model=SlamChart
+    def get_queryset(self):
+        return SlamChart.objects.filter(fr=self.request.user,response=False).order_by('-date_time')
+  
+
+
 @login_required
 @csrf_exempt
 def delete_sent(request):
@@ -328,3 +343,50 @@ class view_slam(ListView):
         l=Slams(pk=k.slam)
         m=Slam.objects.filter(slam=l.pk)
         return m
+    
+    
+class edit_slam(ListView):
+    template_name="edit_slam.html"
+    context_object_name="clist"
+    model=Slam
+    def get_queryset(self):
+        tid=self.kwargs['pk']
+        k=SlamChart.objects.get(pk=tid)
+        l=Slams(pk=k.slam)
+        queryset = {'chart': SlamChart.objects.get(pk=tid), 
+                    'slam':Slam.objects.filter(slam=l.pk) }
+        return queryset
+    
+@login_required
+@csrf_exempt
+def response_slam(request):
+    print(request.POST)
+    c=request.POST.getlist('id[]',0)
+    s=request.POST.getlist('ans[]',0)
+    k=request.POST.getlist('pk',0)
+    txt=request.POST.getlist('mess',0)
+    if not txt:
+        txt=[]
+        txt.append("")
+    if c and k and s:
+         for i in range(len(c)):
+             print(c[i])
+             sl=Slam.objects.get(pk=c[i])
+             #sq=CQuestion(pk=sl.cquestion)
+             #print(sq)
+             sc=SlamChart.objects.get(pk=k[0])
+             sc.response=False
+             sc.rmess=txt[0]
+             sc.save()
+             Answer.objects.get_or_create(cquestion=sl.cquestion,slamchart=SlamChart(pk=k[0]),mess=txt[0],ans=s[i])
+    payload = {'success': True}
+    return HttpResponse(json.dumps(payload), content_type='application/json')
+
+class view_response(ListView):
+    template_name="view_response.html"
+    context_object_name="clist"
+    model=Answer
+    def get_queryset(self):
+        tid=self.kwargs['pk']
+        k=SlamChart.objects.get(pk=tid)
+        return Answer.objects.filter(slamchart=k.pk)
