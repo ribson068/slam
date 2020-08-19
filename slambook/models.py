@@ -29,7 +29,7 @@ class RCTemplateCQuestions(models.Model):
         date_time=models.DateTimeField(auto_now_add=True, blank=True)
         
         def __str__(self):
-            return self.cquestion.cquestion
+            return self.cquestion
         
 
 class Slams(models.Model):

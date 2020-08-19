@@ -353,10 +353,13 @@ class edit_slam(ListView):
         tid=self.kwargs['pk']
         k=SlamChart.objects.get(pk=tid)
         l=Slams(pk=k.slam)
-        queryset = {'chart': SlamChart.objects.get(pk=tid), 
+        if k.response:
+            queryset = {'chart': SlamChart.objects.get(pk=tid), 
                     'slam':Slam.objects.filter(slam=l.pk) }
+        else:
+            queryset=Answer.objects.filter(slamchart=k.pk)
         return queryset
-    
+
 @login_required
 @csrf_exempt
 def response_slam(request):
@@ -378,7 +381,7 @@ def response_slam(request):
              sc.response=False
              sc.rmess=txt[0]
              sc.save()
-             Answer.objects.get_or_create(cquestion=sl.cquestion,slamchart=SlamChart(pk=k[0]),mess=txt[0],ans=s[i])
+             Answer.objects.get_or_create(cquestion=sl.cquestion,slamchart=SlamChart(pk=k[0]),ans=s[i])
     payload = {'success': True}
     return HttpResponse(json.dumps(payload), content_type='application/json')
 

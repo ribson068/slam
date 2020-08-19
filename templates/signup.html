@@ -2,7 +2,7 @@
 
 {% block base_block %}
   <h2>Sign up</h2>
-  <form method="post">
+  <form class='mainpage' method="post">
     {% csrf_token %}
     {% for field in form %}
       <p>
