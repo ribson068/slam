@@ -16,13 +16,14 @@
 
 
     </style> 
-    
+
+
+{% if clist.chart.response%}    
 <form action='' method='POST'>    
 <input type='hidden' value='{{view.kwargs.pk}}' name='slamid'>
 <div class="container" style="height: 400px;overflow-y: scroll;">
 <div class="list-group">
-{% for c in clist%}
-
+{% for c in clist.slam%}
 
 
   <a href="#" id="list{{c.pk}}" class="list-group-item list-group-item-action flex-column align-items-start  listtemplate">
@@ -60,6 +61,64 @@
 </div>
 </div>
 
+{%else%}
+
+
+<form action='' method='POST'>    
+<input type='hidden' value='{{view.kwargs.pk}}' name='slamid'>
+<div class="container" style="height: 400px;overflow-y: scroll;">
+<div class="list-group">
+{% for c in clist%}
+
+
+
+  <a href="#" id="list{{c.pk}}" class="list-group-item list-group-item-action flex-column align-items-start  listtemplate">
+    <div class="d-flex w-100 justify-content-between">
+      {%ifequal c.cquestion|default:""|slice:"-1"  "?" %}
+      <h5 class="mb-1">{{c.cquestion}}</h5>
+      {%else%}
+      <h5 class="mb-1">{{c.cquestion}}?</h5>
+      {%endifequal%}
+      
+      
+    </div>
+    <p class="mb-1">
+    
+    <div class="custom-control custom-radio">
+    {% if c.ans%}
+  <input type="radio" id="radio3" name="radioDisabled{{c.pk}}" id="customRadioDisabled" class="custom-control-input" checked disabled>
+  {%else%}
+  <input type="radio" id="radio3" name="radioDisabled{{c.pk}}" id="customRadioDisabled" class="custom-control-input" disabled>
+  {%endif%}
+  <label class="custom-control-label" for="customRadioDisabled{{c.pk}}">Yes</label>
+</div>
+    
+    
+    <div class="custom-control custom-radio">
+  {% if not c.ans%}
+  <input type="radio" id="radio3" name="radioDisabled{{c.pk}}" id="customRadioDisabled" class="custom-control-input" checked disabled>
+  {%else%}
+  <input type="radio" id="radio3" name="radioDisabled{{c.pk}}" id="customRadioDisabled" class="custom-control-input" disabled>
+  {%endif%}
+  <label class="custom-control-label" for="customRadioDisabled{{c.pk}}">No</label>
+</div>
+    </p>
+    <small>
+{{c.email}}
+    </small>
+     
+  </a>
+ 
+
+{%endfor%}
+</form>
+</div>
+</div>
+
+
+
+
+{%endif%}
 
 
 <!-- Modal -->
