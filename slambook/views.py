@@ -356,6 +356,9 @@ class edit_slam(ListView):
     def get_queryset(self):
         tid=self.kwargs['pk']
         k=SlamChart.objects.get(pk=tid)
+        if not k.readflag:
+            k.readflag=True
+            k.save()
         l=Slams(pk=k.slam)
         if not k.response:
             queryset = {'chart': SlamChart.objects.get(pk=tid), 
@@ -382,7 +385,7 @@ def response_slam(request):
              #sq=CQuestion(pk=sl.cquestion)
              #print(sq)
              sc=SlamChart.objects.get(pk=k[0])
-             sc.response=False
+             sc.response=True
              sc.rmess=txt[0]
              sc.save()
              Answer.objects.get_or_create(cquestion=sl.cquestion,slamchart=SlamChart(pk=k[0]),ans=s[i])

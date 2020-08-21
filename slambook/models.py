@@ -59,6 +59,7 @@ class SlamChart(models.Model):
     is_fr=models.BooleanField(default=True)
     is_to=models.BooleanField(default=True)
     response=models.BooleanField(default=False)
+    readflag=models.BooleanField(default=False)
     rmess=models.TextField(blank=True)
     
     
