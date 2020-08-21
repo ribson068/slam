@@ -58,7 +58,7 @@ class SlamChart(models.Model):
     mess=models.TextField(blank=True)
     is_fr=models.BooleanField(default=True)
     is_to=models.BooleanField(default=True)
-    response=models.BooleanField(default=True)
+    response=models.BooleanField(default=False)
     rmess=models.TextField(blank=True)
     
     
