@@ -341,7 +341,7 @@ class view_slam(ListView):
         tid=self.kwargs['pk']
         k=SlamChart.objects.get(pk=tid)
         l=Slams(pk=k.slam)
-        if k.response:
+        if not k.response:
             queryset = {'chart': SlamChart.objects.get(pk=tid), 
                     'slam':Slam.objects.filter(slam=l.pk) }
         else:
@@ -357,7 +357,7 @@ class edit_slam(ListView):
         tid=self.kwargs['pk']
         k=SlamChart.objects.get(pk=tid)
         l=Slams(pk=k.slam)
-        if k.response:
+        if not k.response:
             queryset = {'chart': SlamChart.objects.get(pk=tid), 
                     'slam':Slam.objects.filter(slam=l.pk) }
         else:
