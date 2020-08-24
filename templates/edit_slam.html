@@ -16,7 +16,7 @@
 
 
     </style> 
-{% if not clist.chart.response%}
+{% if clist.chart.response%}
 <form action='' method='POST'>    
 <input type='hidden' value='{{view.kwargs.pk}}' name='slamid'>
 <div class="container" style="height: 400px;overflow-y: scroll;">
@@ -145,7 +145,7 @@
 <footer class="fixed-bottom ">
 <div class="container">
 
-{% if clist.chart.response%}
+{% if not clist.chart.response%}
 <button type="button" class="btn btn-light" style="width:49%">Response Sent</button>
 {%else%}
 <button  type="button" class="btn btn-success" style="width:49%" data-toggle="modal" data-target="#exampleModalCenter" >Send RESPONSE!</button>
