@@ -357,6 +357,8 @@ class edit_slam(ListView):
         tid=self.kwargs['pk']
         k=SlamChart.objects.get(pk=tid)
         l=Slams(pk=k.slam)
+        k.isreadslam=True
+        k.save()
         if not k.response:
             queryset = {'chart': SlamChart.objects.get(pk=tid), 
                     'slam':Slam.objects.filter(slam=l.pk) }
