@@ -37,6 +37,12 @@ def main_t(request):
     return render(request,"main.html")
 
 
+
+def profile_view(request,pk):
+    context={"Primarykey":pk}
+    return render(request,"profile.html",context)
+
+
 #CHARACTER TEMPLATE RELATED VIEWS
 @login_required
 def index_t(request):

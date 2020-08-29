@@ -24,7 +24,8 @@ from slambook.views import (test_ajax,Questions,base_t,index_t,
                             list_slam,delete_slam,add_slam,generate_slam,
                             list_user,send_slam,
                             Inbox,Sent,Response,delete_inbox,delete_sent
-                            ,view_slam,edit_slam,response_slam,view_response)
+                            ,view_slam,edit_slam,response_slam,view_response
+                            ,profile_view)
 
 from usermanagement import urls
 from django.contrib.auth.decorators import login_required
@@ -38,6 +39,7 @@ urlpatterns = [
     url(r'^base/', base_t),
     url(r'^createslam/',index_t,name="createslam"),
     url(r'^$',main_t,name="index_t"),
+    url(r'^(?P<pk>\d+)/profile$',profile_view,name="profile_name"),
     #Character Template
     url(r'^delete_char_t/', delete_char_t,name="delete_char_t"),
     url(r'^list/',login_required(character_tlist.as_view()),name="charactertlist"),
