@@ -69,6 +69,12 @@ class Answer(models.Model):
     ans=models.BigIntegerField(blank=True)
     date_time=models.DateTimeField(auto_now_add=True, blank=True)
 
+
+class Gifts(models.Model):
+    giftname=models.CharField(max_length=32)
+    
+    def __str__(self):
+        return self.giftname
     
     
     

@@ -25,7 +25,7 @@ from slambook.views import (test_ajax,Questions,base_t,index_t,
                             list_user,send_slam,
                             Inbox,Sent,Response,delete_inbox,delete_sent
                             ,view_slam,edit_slam,response_slam,view_response
-                            ,profile_view)
+                            ,profile_view,Gift_view)
 
 from usermanagement import urls
 from django.contrib.auth.decorators import login_required
@@ -80,5 +80,6 @@ urlpatterns = [
     url(r'^(?P<pk>\d+)/editslam$',login_required(edit_slam.as_view()),name="editslam"),
     url(r'^responseslam/',response_slam,name="responseslam"),
     url(r'^(?P<pk>\d+)/viewresponse$',login_required(view_response.as_view()),name="viewresponse"),
-    
+    #Gifts
+    url(r'^gifts/',login_required(Gift_view.as_view()),name="rajeevanil")
 ]

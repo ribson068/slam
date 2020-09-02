@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 
 from .models import (CharacterTemplate,CQuestion,
                      RCTemplateCQuestions,Slams,Slam,
-                     SlamChart,Answer)
+                     SlamChart,Answer,Gifts)
 import json
 from django.views.decorators.csrf import csrf_exempt
 from django.urls import reverse_lazy
@@ -59,8 +59,8 @@ def index_t(request):
 
 class character_tlist(ListView):
     template_name="char_tlist.html"
-    context_object_name="clist"
     model=CharacterTemplate
+    context_object_name="clist"
     def get_queryset(self):
         return CharacterTemplate.objects.filter(user=self.request.user)
     
@@ -405,3 +405,13 @@ class view_response(ListView):
         tid=self.kwargs['pk']
         k=SlamChart.objects.get(pk=tid)
         return Answer.objects.filter(slamchart=k.pk)
+    
+    
+    
+    
+    
+class Gift_view(ListView):
+    template_name="gifts.html"
+    model=Gifts
+    context_object_name="glist"
+    
