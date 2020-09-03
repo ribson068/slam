@@ -209,12 +209,13 @@ class CreateSlams(CreateView):
     
 @login_required
 def generate_slam(request):
-    if request.method =='GET' and 'id' in request.GET:
-        value_t=request.GET['id']
-        q = CharacterTemplate.objects.get(pk=value_t)
-            #context={"display_text":"This is base Slam book page"}
-        context={'template':q}
-    elif request.method=='POST':
+    # if request.method =='GET' and 'id' in request.GET:
+    #     value_t=request.GET['id']
+    #     q = CharacterTemplate.objects.get(pk=value_t)
+    #         #context={"display_text":"This is base Slam book page"}
+    #     context={'template':q}
+    
+    if request.method=='POST':
         sl=Slams(user=request.user,slam_name=request.POST['slamname'])
         sl.save()
         t=RCTemplateCQuestions.objects.filter(user=request.user,ctemplate=request.POST['templateid'])
@@ -223,7 +224,8 @@ def generate_slam(request):
         context={'generate':sl.pk}
         print(context)
     else:
-        context={}
+        q = CharacterTemplate.objects.filter(user=request.user)
+        context={'template':q}
     return render(request,'generateslam.html',context)
 
 @login_required
