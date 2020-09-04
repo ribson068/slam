@@ -95,7 +95,7 @@ pk={{view.kwargs.pk}}
             url: "{%url 'sendslam'%}",
             data: { id:favorite,pk:pk,mess:txt},
             success: function(response){
-                location.href='{% url 'listslams'%}';
+                location.href='{% url 'inbox'%}';
             }
         });
 
