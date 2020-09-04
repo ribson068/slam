@@ -28,8 +28,8 @@
 </div>
 <footer class="fixed-bottom ">
 <div class="container">
-<a href="{% url 'charactertlist'%}" id="selecttemplate">
-<button type="button" class="btn btn-success" style="width:49%" >Ok</button>
+<a href="{%url 'listuser' view.kwargs.pk %}" id="selecttemplate">
+<button type="button" class="btn btn-success" style="width:49%" >Send</button>
 </a>
 <a href="{%url 'listcquestion' view.kwargs.pk 1%}" id="selecttemplate">
 <button type="button" class="btn btn-warning" style="width:49%">Add Questions</button>
@@ -38,6 +38,8 @@
 </footer>
 <script>
  $(document).ready(function() {
+
+ 
       $(".listtemplate").click(function() {
         var id = $(this).attr('id')
     $(".listtemplate").removeClass('active')
@@ -47,6 +49,9 @@
 
 
  });
+ 
+ 
+ 
     $(".delete_cquestion").click(function() {
         var id = $(this).attr('id')
         $.ajax({

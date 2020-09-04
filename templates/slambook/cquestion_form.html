@@ -35,6 +35,8 @@
     </style> 
 {%block base_block%}
 
+
+<p>{{view.kwargs.slam}} {{view.kwargs.pk}}</p>
 <form method="post" class="form-group"> 
 <div class="container">
     {% csrf_token %} 

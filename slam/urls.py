@@ -49,9 +49,11 @@ urlpatterns = [
     url(r'^delete_cquestion/', delete_cquestion_t,name="delete_cquestion"),
     url(r'^cqlist/',login_required(cquestion_tlist.as_view()),name="listcquestion"),
     url(r'^(?P<pk>\d+)/cqlist$',login_required(cquestion_tlist.as_view()),name="listcquestiont"),
-     url(r'^(?P<pk>\d+)/(?P<slam>\d+)/cqlist$',login_required(cquestion_tlist.as_view()),name="listcquestion"),
+    url(r'^(?P<pk>\d+)/(?P<slam>\d+)/cqlist$',login_required(cquestion_tlist.as_view()),name="listcquestion"),
     url(r'^(?P<pk>\d+)/editcquestion$', login_required(EditCQuestion.as_view()),name="editcquestion"),
     url(r'^createcquestion/', login_required(CreateCQuestion.as_view()),name="createcquestion"),
+    url(r'^(?P<pk>\d+)/(?P<slam>\d+)/createcquestion$',login_required(CreateCQuestion.as_view()),name="scquestion"),
+    url(r'^(?P<pk>\d+)/createcquestion$',login_required(CreateCQuestion.as_view()),name="rcquestion"),
     #RCQT
     url(r'^delete_RCQT_t/', delete_RCQT_t,name="delete_rcqt_t"),
     url(r'^(?P<pk>\d+)/rcqt$',login_required(RCQT_tlist.as_view()),name="rcqt"),

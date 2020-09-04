@@ -136,8 +136,14 @@ class CreateCQuestion(CreateView):
         obj.user = self.request.user
         obj.save()        
         return HttpResponseRedirect(self.get_success_url())
-    def get_success_url(self):
-        return reverse_lazy('listcquestion')
+    def get_success_url(self,**kwargs):
+        
+        if self.kwargs['pk'] and self.kwargs['slam']:
+            return reverse_lazy('listcquestion',kwargs=self.kwargs)
+        elif self.kwargs['pk'] and not self.kwargs['slam']:
+            return reverse_lazy('listcquestion',kwargs=self.kwargs)
+        else:
+            return reverse_lazy('listcquestion')
 
 @login_required
 @csrf_exempt

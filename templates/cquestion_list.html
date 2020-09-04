@@ -68,9 +68,23 @@
 {%endif%}
 </a>
 {%endif%}
-<a href="{% url 'createcquestion'%}">
+
+
+{% if view.kwargs.slam and view.kwargs.pk%}
+<a href="{% url 'scquestion' view.kwargs.pk view.kwargs.slam%}">
 <button type="button" class="btn btn-primary" style="width:49%">Create Questions</button>
 </a>
+{%endif%}
+{% if not view.kwargs.slam and view.kwargs.pk%}
+<a href="{% url 'rcquestion' view.kwargs.pk%}">
+<button type="button" class="btn btn-primary" style="width:49%" >Create Questions</button>
+{%endif%}
+{% if not view.kwargs.slam and not view.kwargs.pk%}
+<a href="{% url 'createcquestion'%}">
+<button type="button" class="btn btn-primary" style="width:49%" >Create Questions</button>
+{%endif%}
+
+
 </div>
 </footer>
 <script>
