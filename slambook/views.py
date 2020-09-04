@@ -353,7 +353,9 @@ class view_slam(ListView):
             queryset = {'chart': SlamChart.objects.get(pk=tid), 
                     'slam':Slam.objects.filter(slam=l.pk) }
         else:
-            queryset=Answer.objects.filter(slamchart=k.pk)
+            queryset = {'chart': SlamChart.objects.get(pk=tid), 
+                    'slam':Answer.objects.filter(slamchart=k.pk) }
+            
         return queryset
     
     
@@ -371,7 +373,9 @@ class edit_slam(ListView):
             queryset = {'chart': SlamChart.objects.get(pk=tid), 
                     'slam':Slam.objects.filter(slam=l.pk) }
         else:
-            queryset=Answer.objects.filter(slamchart=k.pk)
+            queryset = {'chart': SlamChart.objects.get(pk=tid), 
+                    'slam':Answer.objects.filter(slamchart=k.pk) }
+
         return queryset
 
 @login_required
