@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 
 from .models import (CharacterTemplate,CQuestion,
                      RCTemplateCQuestions,Slams,Slam,
-                     SlamChart,Answer,Gifts)
+                     SlamChart,Answer,Gifts,UserExtension)
 import json
 from django.views.decorators.csrf import csrf_exempt
 from django.urls import reverse_lazy
@@ -39,7 +39,9 @@ def main_t(request):
 
 
 def profile_view(request,pk):
-    context={"Primarykey":pk}
+    user=User.objects.get(pk=pk)
+    userext=UserExtension.objects.get(user=pk)
+    context={"usr":user,"ext":userext}
     return render(request,"profile.html",context)
 
 
@@ -138,10 +140,10 @@ class CreateCQuestion(CreateView):
         return HttpResponseRedirect(self.get_success_url())
     def get_success_url(self,**kwargs):
         
-        if self.kwargs['pk'] and self.kwargs['slam']:
+        if 'pk' in self.kwargs.keys() and 'slam' in  self.kwargs.keys():
             return reverse_lazy('listcquestion',kwargs=self.kwargs)
-        elif self.kwargs['pk'] and not self.kwargs['slam']:
-            return reverse_lazy('listcquestion',kwargs=self.kwargs)
+        elif 'pk' in self.kwargs.keys() and 'slam' not in self.kwargs.keys():
+            return reverse_lazy('listcquestiont',kwargs=self.kwargs)
         else:
             return reverse_lazy('listcquestion')
 

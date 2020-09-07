@@ -9,13 +9,14 @@
   <img class="card-img-top" src="{% static 'img/download.jpg'%}" alt="Card image cap">
   <div class="card-body">
   <div class="d-flex">
-    <div class="mr-auto"><h4 class="card-title">{{user.first_name|title}}&nbsp{{user.last_name|title}}</h4></div><div> <small class="text-muted">{{user.date_joined|timesince}}</small></div>
+    <div class="mr-auto"><h4 class="card-title">{{usr.first_name|title}}&nbsp{{usr.last_name|title}}</h4></div><div> <small class="text-muted">{{usr.date_joined|timesince}}</small></div>
 </div>
 
-    <p class="card-text"><b>UserID:&nbsp</b>{{user}}</p>
-    <p class="card-text"><b>Email:&nbsp</b>{{user.email}}</p>
+    <p class="card-text"><b>userID:&nbsp</b>{{usr}}</p>
+    <p class="card-text"><b>Email:&nbsp</b>{{usr.email}}</p>
+    <p class="card-text"><b>DOB:&nbsp</b>{{ext.dob}}</p>
     <p class="card-text"><a href="#">Change Password</a></p>
-  <p class="card-text"><small class="text-muted">Last login time:&nbsp{{user.last_login|timesince}}</small></p>
+  <p class="card-text"><small class="text-muted">Last login time:&nbsp{{usr.last_login|timesince}}</small></p>
 
   </div>
   </div>

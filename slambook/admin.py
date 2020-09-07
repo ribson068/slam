@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import (CharacterTemplate,CQuestion,
-                     RCTemplateCQuestions,Slams,Slam,SlamChart,Answer,Gifts)
+                     RCTemplateCQuestions,Slams,Slam,SlamChart,
+                     Answer,Gifts,UserExtension)
 
 # Register your models here.
 
@@ -15,3 +16,4 @@ admin.site.register(Slam)
 admin.site.register(SlamChart)
 admin.site.register(Answer)
 admin.site.register(Gifts)
+admin.site.register(UserExtension)
