@@ -10,6 +10,7 @@ from datetime import datetime
 class UserExtension(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     dob = models.DateField(default=datetime(1900,1,1))
+    pro_pic = models.ImageField(null=True,blank=True)
     def __str__(self):
         return str(self.dob)
     
