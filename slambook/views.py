@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 
 from .models import (CharacterTemplate,CQuestion,
                      RCTemplateCQuestions,Slams,Slam,
-                     SlamChart,Answer,Gifts,UserExtension)
+                     SlamChart,Answer,UserExtension)#,Gifts
 import json
 from django.views.decorators.csrf import csrf_exempt
 from django.urls import reverse_lazy
@@ -424,8 +424,8 @@ class view_response(ListView):
     
     
     
-class Gift_view(ListView):
-    template_name="gifts.html"
-    model=Gifts
-    context_object_name="glist"
+# class Gift_view(ListView):
+#     template_name="gifts.html"
+#     model=Gifts
+#     context_object_name="glist"
     

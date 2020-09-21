@@ -76,11 +76,11 @@ class SlamChart(models.Model):
     slam=models.ForeignKey(Slams,on_delete=models.CASCADE)
     date_time=models.DateTimeField(auto_now_add=True, blank=True)
     mess=models.TextField(blank=True)
+    rmess=models.TextField(blank=True)
     is_fr=models.BooleanField(default=True)
     is_to=models.BooleanField(default=True)
     response=models.BooleanField(default=False)
     isreadslam=models.BooleanField(default=False)
-    rmess=models.TextField(blank=True)
     
     
 class Answer(models.Model):
@@ -90,11 +90,11 @@ class Answer(models.Model):
     date_time=models.DateTimeField(auto_now_add=True, blank=True)
 
 
-class Gifts(models.Model):
-    giftname=models.CharField(max_length=32)
+# class Gifts(models.Model):
+#     giftname=models.CharField(max_length=32)
     
-    def __str__(self):
-        return self.giftname
+#     def __str__(self):
+#         return self.giftname
     
     
     
