@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 
 from .models import (CharacterTemplate,CQuestion,
                      RCTemplateCQuestions,Slams,Slam,
-                     SlamChart,Answer,UserExtension)#,Gifts
+                     SlamChart,Answer,UserExtension,Gifts)
 import json
 from django.views.decorators.csrf import csrf_exempt
 from django.urls import reverse_lazy
@@ -420,12 +420,10 @@ class view_response(ListView):
         k=SlamChart.objects.get(pk=tid)
         return Answer.objects.filter(slamchart=k.pk)
     
+
     
-    
-    
-    
-# class Gift_view(ListView):
-#     template_name="gifts.html"
-#     model=Gifts
-#     context_object_name="glist"
+class Gift_view(ListView):
+    template_name="gifts.html"
+    model=Gifts
+    context_object_name="glist"
     
