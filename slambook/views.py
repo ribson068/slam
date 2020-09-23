@@ -4,10 +4,11 @@ from django.views.generic import UpdateView,CreateView
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.contrib.auth.models import User
+from django.db.models import Q
 
 from .models import (CharacterTemplate,CQuestion,
                      RCTemplateCQuestions,Slams,Slam,
-                     SlamChart,Answer,UserExtension,Gifts)
+                     SlamChart,Answer,UserExtension,Gifts,Gift,GiftChart)
 import json
 from django.views.decorators.csrf import csrf_exempt
 from django.urls import reverse_lazy
@@ -427,3 +428,51 @@ class Gift_view(ListView):
     model=Gifts
     context_object_name="glist"
     
+    
+@login_required
+def generate_gift(request):
+    # if request.method =='GET' and 'id' in request.GET:
+    #     value_t=request.GET['id']
+    #     q = CharacterTemplate.objects.get(pk=value_t)
+    #         #context={"display_text":"This is base Slam book page"}
+    #     context={'template':q}
+    
+    if request.method=='POST':
+        sl=Gifts(user=request.user,gift_name=request.POST['giftname'])
+        sl.save()
+        t=RCTemplateCQuestions.objects.filter(user=request.user,ctemplate=request.POST['templateid'])
+        for e in t:
+            Gift.objects.get_or_create(user=request.user,gift=sl,cquestion=e.cquestion,typ=1)           
+        context={'generate':sl.pk}
+        print(context)
+    else:
+        q = CharacterTemplate.objects.filter(user=request.user)
+        context={'template':q}
+    return render(request,'gift_create.html',context)
+
+
+#User
+class search_user(ListView):
+    template_name="search_user.html"
+    context_object_name="clist"
+    model=User
+    def post(self, request, *args, **kwargs):
+        query = request.POST.get('uservalue')
+        if query:
+             stuff = self.get_queryset().filter(Q(username__icontains=query)|Q(first_name__icontains=query)|Q(last_name__icontains=query))
+        else:
+             stuff = self.model.objects.all()
+        
+
+        return render(request, self.template_name, {self.context_object_name: stuff})
+    # def get_queryset(self):
+    #     tid=self.kwargs['pk']
+    #     query = self.request.POST.get('uservalue')
+    #     print(self.request.POST)
+    #     print(query)
+    #     if query:
+    #         object_list = self.model.objects.filter(username__icontains=query)
+    #     else:
+    #         object_list = self.model.objects.all()
+    #     return object_list
+        
