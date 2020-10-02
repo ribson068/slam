@@ -25,7 +25,7 @@ from slambook.views import (test_ajax,Questions,base_t,index_t,
                             list_user,send_slam,
                             Inbox,Sent,Response,delete_inbox,delete_sent
                             ,view_slam,edit_slam,response_slam,view_response
-                            ,profile_view,Gift_view,generate_gift,search_user)
+                            ,profile_view,Gift_view,generate_gift,search_user,gift_contributor)
 
 from usermanagement import urls
 from django.contrib.auth.decorators import login_required
@@ -87,5 +87,5 @@ urlpatterns = [
     url(r'^generategift/',generate_gift,name="generategift"),
     url(r'^searchuser/',login_required(search_user.as_view()),name="searchuser"),
     url(r'^filteruser/',login_required(search_user.as_view()),name="filteruser"),
-    
+    url(r'^giftcontributor/',login_required(gift_contributor.as_view()),name="giftcontributor"),
 ]

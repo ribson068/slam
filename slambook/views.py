@@ -475,4 +475,11 @@ class search_user(ListView):
     #     else:
     #         object_list = self.model.objects.all()
     #     return object_list
-        
+
+
+class gift_contributor(ListView):
+    template_name = "gift_contributor.html"
+    context_object_name = "glist"
+    model = GiftChart
+    def get_queryset(self):
+        return GiftChart.objects.filter(to=self.request.user)
