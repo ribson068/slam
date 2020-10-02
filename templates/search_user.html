@@ -1,4 +1,4 @@
-{%extends "base.html"%}
+    {%extends "base.html"%}
 
 {%block base_block%}
 
@@ -71,7 +71,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button id='sendSlam' type="button" class="btn btn-primary">SEND SLAM!</button>
+        <button  type="button" class="btn btn-primary">SEND SLAM!</button>
       </div>
     </div>
   </div>
@@ -81,9 +81,10 @@
 
 <footer class="fixed-bottom ">
 <div class="container">
-
-<button  type="button" class="btn btn-success" style="width:49%" data-toggle="modal" data-target="#exampleModalCenter" >Select User</button>
-<a href="{%url 'generategift'%}" id="selecttemplate">
+<a href="#" id="selecttemplate">
+<button id='sendSlam'  type="button" class="btn btn-success" style="width:49%" data-toggle="modal" data-target="#exampleModalCenter" >Select User</button>
+</a>
+<a href="{%url 'generategift'%}">
 <button type="button" class="btn btn-light" style="width:49%">Cancel</button>
 </a>
 </div>
@@ -95,6 +96,8 @@
         $(".listtemplate").removeClass('active')
      $(this).toggleClass("active"); 
      var lid=id.substring(4)
+var changeq="{%url 'generategift' 1234 %}".replace(/1234/, lid.toString())
+ $("#selecttemplate").attr('href',changeq)
  });
 
 
