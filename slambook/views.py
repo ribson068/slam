@@ -429,6 +429,11 @@ class Gift_view(ListView):
     context_object_name="glist"
     
     
+class GiftReceiver_view(ListView):
+    template_name="gifts_Receiver.html"
+    model=GiftChart
+    context_object_name="gReceiverlist"
+
 @login_required
 def generate_gift(request):
     # if request.method =='GET' and 'id' in request.GET:
@@ -475,4 +480,11 @@ class search_user(ListView):
     #     else:
     #         object_list = self.model.objects.all()
     #     return object_list
-        
+
+
+class gift_contributor(ListView):
+    template_name = "gift_contributor.html"
+    context_object_name = "glist"
+    model = GiftChart
+    def get_queryset(self):
+        return GiftChart.objects.filter(to=self.request.user)
