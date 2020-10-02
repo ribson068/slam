@@ -429,6 +429,11 @@ class Gift_view(ListView):
     context_object_name="glist"
     
     
+class GiftReceiver_view(ListView):
+    template_name="gifts_Receiver.html"
+    model=GiftChart
+    context_object_name="gReceiverlist"
+
 @login_required
 def generate_gift(request):
     # if request.method =='GET' and 'id' in request.GET:
