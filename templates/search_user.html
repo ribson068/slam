@@ -82,8 +82,8 @@
 <footer class="fixed-bottom ">
 <div class="container">
 
-<button  type="button" class="btn btn-success" style="width:49%" data-toggle="modal" data-target="#exampleModalCenter" >Send SLAM!</button>
-<a href="{%url 'listslams'%}" id="selecttemplate">
+<button  type="button" class="btn btn-success" style="width:49%" data-toggle="modal" data-target="#exampleModalCenter" >Select User</button>
+<a href="{%url 'generategift'%}" id="selecttemplate">
 <button type="button" class="btn btn-light" style="width:49%">Cancel</button>
 </a>
 </div>
@@ -92,6 +92,7 @@
  $(document).ready(function() {
       $(".listtemplate").click(function() {
         var id = $(this).attr('id')
+        $(".listtemplate").removeClass('active')
      $(this).toggleClass("active"); 
      var lid=id.substring(4)
  });
@@ -106,15 +107,8 @@
 if(favorite.length>0){
 
 var txt = $("#message-text").val(); 
-pk={{view.kwargs.pk}}
-        $.ajax({
-            type: "POST",
-            url: "{%url 'sendslam'%}",
-            data: { id:favorite,pk:pk,mess:txt},
-            success: function(response){
-                location.href='{% url 'sent'%}';
-            }
-        });
+
+        
 
 
 }
