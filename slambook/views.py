@@ -435,7 +435,7 @@ class GiftReceiver_view(ListView):
     context_object_name="gReceiverlist"
 
 @login_required
-def generate_gift(request):
+def generate_gift(request,pk=None):
     # if request.method =='GET' and 'id' in request.GET:
     #     value_t=request.GET['id']
     #     q = CharacterTemplate.objects.get(pk=value_t)
@@ -452,7 +452,11 @@ def generate_gift(request):
         print(context)
     else:
         q = CharacterTemplate.objects.filter(user=request.user)
-        context={'template':q}
+        if not pk:
+            context={'template':q,'userid':None}
+        else:
+            user=User.objects.get(pk=pk)
+            context={'template':q,'userid':user}
     return render(request,'gift_create.html',context)
 
 

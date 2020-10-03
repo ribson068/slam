@@ -85,6 +85,7 @@ urlpatterns = [
     #Gifts
     url(r'^gifts/',login_required(Gift_view.as_view()),name="gifts"),
     url(r'^generategift/',generate_gift,name="generategift"),
+    url(r'^(?P<pk>\d+)/generategift/',generate_gift,name="generategift"),
     url(r'^searchuser/',login_required(search_user.as_view()),name="searchuser"),
     url(r'^filteruser/',login_required(search_user.as_view()),name="filteruser"),
     
