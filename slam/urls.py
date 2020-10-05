@@ -25,7 +25,7 @@ from slambook.views import (test_ajax,Questions,base_t,index_t,
                             list_user,send_slam,
                             Inbox,Sent,Response,delete_inbox,delete_sent
                             ,view_slam,edit_slam,response_slam,view_response
-                            ,profile_view,Gift_view,generate_gift,search_user,GiftReceiver_view)
+                            ,profile_view,Gift_view,generate_gift,search_user,GiftReceiver_view,Group_view,Delete_Group,EditSlamGroup)
 
 from usermanagement import urls
 from django.contrib.auth.decorators import login_required
@@ -92,4 +92,11 @@ urlpatterns = [
     
     #Gift Receiver
     url(r'^giftreceiver/',login_required(GiftReceiver_view.as_view()),name="receiver"),
+    
+    
+    #Groups URLs 
+    url(r'^slamgroup/',login_required(Group_view.as_view()),name="slamgroup"),
+    url(r'^(?P<pk>\d+)/slamgroupedit$',login_required(EditSlamGroup.as_view()),name="slamedit"),
+    url(r'^slamgroupdelete',Delete_Group,name="slamgroupdelete"),
+
 ]

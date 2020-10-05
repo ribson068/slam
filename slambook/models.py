@@ -129,10 +129,20 @@ class GiftChart(models.Model):
     is_re=models.BooleanField(default=True)
     response=models.BooleanField(default=False)
     isreadslam=models.BooleanField(default=False)
+    def __str__(self):
+        return self.gift.gift_name
     
 class GiftAnswer(models.Model):
     giftchart=models.ForeignKey(GiftChart,on_delete=models.CASCADE)
     cquestion=models.ForeignKey(CQuestion,on_delete=models.CASCADE)
     ans=models.BigIntegerField(blank=True)
     date_time=models.DateTimeField(auto_now_add=True, blank=True)
+    
+    
+class Slam_Group(models.Model):
+    user=models.ForeignKey('auth.User',on_delete=models.CASCADE)
+    group_name=models.CharField(max_length=32)
+    date_time=models.DateTimeField(auto_now_add=True, blank=True)
+    def __str__(self):
+        return self.group_name
     
