@@ -8,7 +8,7 @@ from django.db.models import Q
 
 from .models import (CharacterTemplate,CQuestion,
                      RCTemplateCQuestions,Slams,Slam,
-                     SlamChart,Answer,UserExtension,Gifts,Gift,GiftChart)
+                     SlamChart,Answer,UserExtension,Gifts,Gift,GiftChart,Slam_Group)
 import json
 from django.views.decorators.csrf import csrf_exempt
 from django.urls import reverse_lazy
@@ -215,6 +215,39 @@ class CreateSlams(CreateView):
         return HttpResponseRedirect(self.get_success_url())
     def get_success_url(self):
         return reverse_lazy('listslams')
+    
+    
+class CreateSlamGroup(CreateView):
+    model=Slam_Group
+    fields = ['group_name']
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        obj.user = self.request.user
+        obj.save()        
+        return HttpResponseRedirect(self.get_success_url())
+    def get_success_url(self):
+        return reverse_lazy('slamgroup')
+
+  
+class Group_view(ListView):
+    template_name="slam_group.html"
+    context_object_name="slam_group"
+    model=Slam_Group
+    def get_queryset(self):
+        return Slam_Group.objects.filter(user=self.request.user)
+
+class EditSlamGroup(UpdateView):
+    model=Slam_Group
+    fields = ['group_name']
+    success_url =reverse_lazy('slamgroup')
+    
+@login_required
+@csrf_exempt  
+def Delete_Group(request):
+    candidate = Slam_Group.objects.get(pk = int(request.POST['id']))
+    candidate.delete()
+    payload = {'success': True}
+    return HttpResponse(json.dumps(payload), content_type='application/json')
     
 @login_required
 def generate_slam(request):
@@ -433,6 +466,11 @@ class GiftReceiver_view(ListView):
     template_name="gifts_Receiver.html"
     model=GiftChart
     context_object_name="gReceiverlist"
+    def get_queryset(self):
+        return GiftChart.objects.filter(re=self.request.user)
+    
+    
+
 
 @login_required
 def generate_gift(request,pk=None):
