@@ -117,26 +117,37 @@ class Gift(models.Model):
     
 class GiftChart(models.Model):
     fr=models.ForeignKey('auth.User',on_delete=models.CASCADE,related_name='gfr')
-    to=models.ForeignKey(User,on_delete=models.CASCADE,related_name='gto')
+    #to=models.ForeignKey(User,on_delete=models.CASCADE,related_name='gto')
     re=models.ForeignKey(User,on_delete=models.CASCADE,related_name='gre')
     gift=models.ForeignKey(Gifts,on_delete=models.CASCADE)
     date_time=models.DateTimeField(auto_now_add=True, blank=True)
     mess=models.TextField(blank=True)
-    rmess=models.TextField(blank=True)
+    #rmess=models.TextField(blank=True)
     giftmess=models.TextField(blank=True)
     is_fr=models.BooleanField(default=True)
-    is_to=models.BooleanField(default=True)
+    #is_to=models.BooleanField(default=True)
     is_re=models.BooleanField(default=True)
-    response=models.BooleanField(default=False)
-    isreadslam=models.BooleanField(default=False)
+    #response=models.BooleanField(default=False)
+    #isreadslam=models.BooleanField(default=False)
     def __str__(self):
         return self.gift.gift_name
-    
+
+class Contributor(models.Model):
+    contrib=models.ForeignKey(User,on_delete=models.CASCADE,related_name='gto')
+    giftchart=models.ForeignKey(GiftChart,on_delete=models.CASCADE)
+    date_time=models.DateTimeField(auto_now_add=True, blank=True)
+    rmess=models.TextField(blank=True)
+    is_to=models.BooleanField(default=True)
+    response=models.BooleanField(default=False)
+    isreadslam=models.BooleanField(default=False)
+
 class GiftAnswer(models.Model):
     giftchart=models.ForeignKey(GiftChart,on_delete=models.CASCADE)
     cquestion=models.ForeignKey(CQuestion,on_delete=models.CASCADE)
     ans=models.BigIntegerField(blank=True)
     date_time=models.DateTimeField(auto_now_add=True, blank=True)
+    
+    
     
     
 class Slam_Group(models.Model):
