@@ -112,7 +112,7 @@ class Gift(models.Model):
     typ=models.IntegerField()
     date_time=models.DateTimeField(auto_now_add=True, blank=True)
     def __str__(self):
-        return self.cquestion.cquestion
+        return str(self.pk)+str(self.gift.pk)
     
     
 class GiftChart(models.Model):

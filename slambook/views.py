@@ -524,6 +524,24 @@ class search_user(ListView):
     #     return object_list
 
 
+class list_gift(ListView):
+    template_name="list_gift.html"
+    context_object_name="clist"
+    model=Gift
+    def get_queryset(self):
+        tid=self.kwargs['pk']
+        return Gift.objects.filter(user=self.request.user,gift=tid)
+
+@login_required
+@csrf_exempt
+def delete_gift(request):
+    candidate = Gift.objects.get(pk = int(request.POST['id']))
+    candidate.delete()
+    payload = {'success': True}
+    return HttpResponse(json.dumps(payload), content_type='application/json')
+
+
+
 class gift_contributor(ListView):
     template_name = "gift_contributor.html"
     context_object_name = "glist"
