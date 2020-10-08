@@ -8,7 +8,7 @@
 
     </style> 
 <div class="container" style="height: 400px;overflow-y: scroll;">
-<ul class="list-group">
+<ul class="list-group"> 
 {% for c in clist%}
 
   <li  id="list{{c.pk}}" class="list-group-item list-group-item-action  listtemplate">
@@ -28,7 +28,7 @@
 </div>
 <footer class="fixed-bottom ">
 <div class="container">
-<a href="{%url 'listuser' view.kwargs.pk %}" id="selecttemplate">
+<a href="{%url 'listusergift' view.kwargs.pk %}" id="selecttemplate">
 <button type="button" class="btn btn-success" style="width:49%" >Send</button>
 </a>
 <a href="{%url 'listcquestion' view.kwargs.pk 1%}" id="selecttemplate">

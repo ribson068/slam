@@ -471,7 +471,7 @@ class GiftReceiver_view(ListView):
     
     
 
-
+#Gift Creator
 @login_required
 def generate_gift(request,pk=None):
     # if request.method =='GET' and 'id' in request.GET:
@@ -539,6 +539,13 @@ def delete_gift(request):
     candidate.delete()
     payload = {'success': True}
     return HttpResponse(json.dumps(payload), content_type='application/json')
+
+
+#User
+class list_user_gift(ListView):
+    template_name="list_user_gift.html"
+    context_object_name="clist"
+    model=User
 
 
 
