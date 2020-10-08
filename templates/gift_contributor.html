@@ -14,17 +14,17 @@
 
  <a href="{%url 'editslam' c.pk%}" id="list{{c.pk}}" class="list-group-item list-group-item-action flex-column align-items-start listtemplate  {%if c.isreadslam and not c.response%}slamreadnotresponded{%endif%}{%if c.response%}slamresponded{%endif%}">
     <div class="d-flex w-100 justify-content-between">
-      <h5 class="mb-1">From: {{c.fr.first_name}} {{c.fr.last_name}}</h5>
+      <h5 class="mb-1">From: {{c.giftchart.fr.first_name}} {{c.giftchart.fr.last_name}}</h5>
       
       <small>{{c.date_time}}</small>
-       <small class="delete_cquestion" id={{c.pk}}>{{c.fr.username}}
+       <small class="delete_cquestion" id={{c.pk}}>{{c.giftchart.fr.username}}
       <svg class="bi bi-trash-fill" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
   <path fill-rule="evenodd" d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"/>
 </small>
     </div>
-    <p class="mb-1"><h6 class="mb-1">{{c.gift}}</h6> {{c.mess}}</p>
+    <p class="mb-1"><h6 class="mb-1">{{c.giftchart.gift}}</h6> {{c.giftchart.mess}}</p>
     <small>
-{{c.fr.email}}
+{{c.giftchart.fr.email}}
     </small>
     
      

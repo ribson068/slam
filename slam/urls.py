@@ -25,8 +25,12 @@ from slambook.views import (test_ajax,Questions,base_t,index_t,
                             list_user,send_slam,
                             Inbox,Sent,Response,delete_inbox,delete_sent
                             ,view_slam,edit_slam,response_slam,view_response
+<<<<<<< Updated upstream
                             ,profile_view,Gift_view,generate_gift,search_user,GiftReceiver_view,
                             Group_view,Delete_Group,EditSlamGroup,list_gift,delete_gift)
+=======
+                            ,profile_view,Gift_view,generate_gift,search_user,GiftReceiver_view,Group_view,Delete_Group,EditSlamGroup,gift_contributor)
+>>>>>>> Stashed changes
 
 from usermanagement import urls
 from django.contrib.auth.decorators import login_required
@@ -94,6 +98,9 @@ urlpatterns = [
     
     #Gift Receiver
     url(r'^giftreceiver/',login_required(GiftReceiver_view.as_view()),name="receiver"),
+    
+    #Gift Contributor
+    url(r'^giftcontributor/',login_required(gift_contributor.as_view()),name="contributor"),
     
     
     #Groups URLs 

@@ -8,7 +8,7 @@ from django.db.models import Q
 
 from .models import (CharacterTemplate,CQuestion,
                      RCTemplateCQuestions,Slams,Slam,
-                     SlamChart,Answer,UserExtension,Gifts,Gift,GiftChart,Slam_Group)
+                     SlamChart,Answer,UserExtension,Gifts,Gift,GiftChart,Slam_Group,Contributor)
 import json
 from django.views.decorators.csrf import csrf_exempt
 from django.urls import reverse_lazy
@@ -545,6 +545,6 @@ def delete_gift(request):
 class gift_contributor(ListView):
     template_name = "gift_contributor.html"
     context_object_name = "glist"
-    model = GiftChart
+    model = Contributor
     def get_queryset(self):
-        return GiftChart.objects.filter(to=self.request.user)
+        return Contributor.objects.filter(contrib=self.request.user)
