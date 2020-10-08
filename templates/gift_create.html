@@ -18,6 +18,7 @@
 <div class="form-check form-check-inline">
 
 <input class="form-control col-sm-12" style="display:initial !important" type="text" placeholder="Receiver Name" name='name' disabled {%if userid %}value="{{userid.username}}"{%endif%}>
+<input class="form-control col-sm-12" style="display:initial !important" type="hidden" placeholder="Receiver Name" name='receiver' {%if userid %}value="{{userid.pk}}"{%endif%}>
 </div>
 <div class="form-check form-check-inline">
 <a href="{%url 'searchuser'%}">
@@ -42,7 +43,7 @@
   </div>
   
   <div class="custom-control custom-switch">
-  <input type="checkbox" class="custom-control-input" id="customSwitch1" checked>
+  <input type="checkbox" class="custom-control-input" id="customSwitch1" name="includeme" checked>
   <label class="custom-control-label" for="customSwitch1">Include <b>ME</b> as contributor <span style="color:red">&hearts;</span></label>
 </div>
 <br>

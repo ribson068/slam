@@ -25,12 +25,9 @@ from slambook.views import (test_ajax,Questions,base_t,index_t,
                             list_user,send_slam,
                             Inbox,Sent,Response,delete_inbox,delete_sent
                             ,view_slam,edit_slam,response_slam,view_response
-<<<<<<< Updated upstream
                             ,profile_view,Gift_view,generate_gift,search_user,GiftReceiver_view,
-                            Group_view,Delete_Group,EditSlamGroup,list_gift,delete_gift)
-=======
-                            ,profile_view,Gift_view,generate_gift,search_user,GiftReceiver_view,Group_view,Delete_Group,EditSlamGroup,gift_contributor)
->>>>>>> Stashed changes
+                            Group_view,Delete_Group,EditSlamGroup,list_gift,delete_gift,    
+                            gift_contributor,list_user_gift,send_gift)
 
 from usermanagement import urls
 from django.contrib.auth.decorators import login_required
@@ -95,7 +92,9 @@ urlpatterns = [
     url(r'^filteruser/',login_required(search_user.as_view()),name="filteruser"),
     url(r'^(?P<pk>\d+)/listgift$',login_required(list_gift.as_view()),name="listgift"),
     url(r'^deletegift/', delete_gift,name="deletegift"),
-    
+    url(r'^(?P<pk>\d+)/listusergift$',login_required(list_user_gift.as_view()),name="listusergift"),
+    url(r'^sendgift/',send_gift,name="sendgift"),    
+
     #Gift Receiver
     url(r'^giftreceiver/',login_required(GiftReceiver_view.as_view()),name="receiver"),
     

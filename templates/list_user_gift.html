@@ -96,7 +96,7 @@ var txt = $("#message-text").val();
 pk={{view.kwargs.pk}}
         $.ajax({
             type: "POST",
-            url: "{%url 'sendslam'%}",
+            url: "{%url 'sendgift'%}",
             data: { id:favorite,pk:pk,mess:txt},
             success: function(response){
                 location.href='{% url 'sent'%}';

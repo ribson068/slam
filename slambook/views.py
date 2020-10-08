@@ -482,12 +482,14 @@ def generate_gift(request,pk=None):
     
     if request.method=='POST':
         sl=Gifts(user=request.user,gift_name=request.POST['giftname'])
+        request.session['receiver']=request.POST['receiver']
+        request.session['includeme']=request.POST['includeme']
         sl.save()
         t=RCTemplateCQuestions.objects.filter(user=request.user,ctemplate=request.POST['templateid'])
         for e in t:
             Gift.objects.get_or_create(user=request.user,gift=sl,cquestion=e.cquestion,typ=1)           
         context={'generate':sl.pk}
-        print(context)
+     
     else:
         q = CharacterTemplate.objects.filter(user=request.user)
         if not pk:
@@ -530,6 +532,8 @@ class list_gift(ListView):
     model=Gift
     def get_queryset(self):
         tid=self.kwargs['pk']
+        print(self.request.session['receiver'])
+        print(self.request.session['includeme'])
         return Gift.objects.filter(user=self.request.user,gift=tid)
 
 @login_required
@@ -537,6 +541,26 @@ class list_gift(ListView):
 def delete_gift(request):
     candidate = Gift.objects.get(pk = int(request.POST['id']))
     candidate.delete()
+    payload = {'success': True}
+    return HttpResponse(json.dumps(payload), content_type='application/json')
+
+
+@login_required
+@csrf_exempt
+def send_gift(request):
+    print(request.POST)
+    c=request.POST.getlist('id[]',0)
+    k=request.POST.getlist('pk',0)
+    txt=request.POST.getlist('mess',0)
+    receiver=request.session['receiver']
+    includeme=request.session['includeme']
+    giftchart=GiftChart.objects.get_or_create(fr=request.user,re=User(pk=receiver),gift=Gifts(pk=k[0]),mess=txt[0])
+    if c and k:
+         for i in c:
+             Contributor.objects.get_or_create(contrib=User(pk=i),giftchart=giftchart[0])
+
+    if includeme=='on':
+        Contributor.objects.get_or_create(contrib=request.user,giftchart=giftchart[0])
     payload = {'success': True}
     return HttpResponse(json.dumps(payload), content_type='application/json')
 
