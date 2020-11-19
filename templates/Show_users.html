@@ -1,4 +1,4 @@
-{%extends "base.html"%}
+    {%extends "base.html"%}
 
 {%block base_block%}
 
@@ -18,10 +18,10 @@
   <input type="text" class="form-control" aria-label="Text input with segmented dropdown button" placeholder="Search user name" name="uservalue">
   <div class="input-group-append">
   <a href="{% url 'searchuser' %}">
-    <button type="button" class="btn btn-outline-secondary">Clear</button>
+    &nbsp;<button type="button" class="btn btn-outline-secondary">Clear</button>
   </a></div>
   <div class="input-group-append">
-    <button type="submit" class="btn btn-outline-secondary">Search</button>
+    &nbsp;<button type="submit" class="btn btn-outline-secondary">Search</button>
   </div>
 </div>
 <div class="container" style="height: 400px;overflow-y: scroll;">
@@ -29,7 +29,7 @@
 
 
 
-{% for c in clist%}
+{% for c in ulist%}
 
 {%ifnotequal c.pk user.pk %}
 

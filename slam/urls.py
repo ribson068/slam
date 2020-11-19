@@ -26,8 +26,9 @@ from slambook.views import (test_ajax,Questions,base_t,index_t,
                             Inbox,Sent,Response,delete_inbox,delete_sent
                             ,view_slam,edit_slam,response_slam,view_response
                             ,profile_view,Gift_view,generate_gift,search_user,GiftReceiver_view,
-                            Group_view,Delete_Group,EditSlamGroup,list_gift,delete_gift,    
-                            gift_contributor,list_user_gift,send_gift)
+                            Group_view,Delete_Group,EditSlamGroup,list_gift,delete_gift,
+                            gift_contributor,list_user_gift,send_gift,CreateSlamGroup,Add_user_to_Group,Group_Users_list,Add_User_to_Group)
+)
 
 from usermanagement import urls
 from django.contrib.auth.decorators import login_required
@@ -73,7 +74,7 @@ urlpatterns = [
     #USER
     url(r'^(?P<pk>\d+)/listuser$',login_required(list_user.as_view()),name="listuser"),
     url(r'^sendslam/',send_slam,name="sendslam"),
-    
+
     #INBOX RESPONSE and SENT
     url(r'^inbox/',login_required(Inbox.as_view()),name="inbox"),
     url(r'^sent/',login_required(Sent.as_view()),name="sent"),
@@ -94,18 +95,23 @@ urlpatterns = [
     url(r'^deletegift/', delete_gift,name="deletegift"),
     url(r'^(?P<pk>\d+)/listusergift$',login_required(list_user_gift.as_view()),name="listusergift"),
     url(r'^sendgift/',send_gift,name="sendgift"),
-    
+
 
     #Gift Receiver
     url(r'^giftreceiver/',login_required(GiftReceiver_view.as_view()),name="receiver"),
-    
+
     #Gift Contributor
     url(r'^giftcontributor/',login_required(gift_contributor.as_view()),name="contributor"),
-    
-    
-    #Groups URLs 
+
+
+    #Groups URLs
     url(r'^slamgroup/',login_required(Group_view.as_view()),name="slamgroup"),
     url(r'^(?P<pk>\d+)/slamgroupedit$',login_required(EditSlamGroup.as_view()),name="slamedit"),
     url(r'^slamgroupdelete',Delete_Group,name="slamgroupdelete"),
+    url(r'^creategroup/', login_required(CreateSlamGroup.as_view()),name="creategroup"),
+
+
+    url(r'^listgroupusers/',login_required(Group_Users_list.as_view()),name="listgroupusers"),
+    url(r'^AddUserToGroup/',login_required(Add_User_to_Group.as_view()),name="AddUserToGroup"),
 
 ]

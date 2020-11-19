@@ -157,3 +157,11 @@ class Slam_Group(models.Model):
     def __str__(self):
         return self.group_name
     
+class Group_User_Add(models.Model):
+        user=models.ForeignKey('auth.User',on_delete=models.CASCADE)
+        username=models.TextField()
+        date_time=models.DateTimeField(auto_now_add=True, blank=True)
+        
+        def __str__(self):
+            return self.cquestion
+
