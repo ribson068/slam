@@ -99,7 +99,7 @@ pk={{view.kwargs.pk}}
             url: "{%url 'sendgift'%}",
             data: { id:favorite,pk:pk,mess:txt},
             success: function(response){
-                location.href='{% url 'sent'%}';
+                location.href='{% url 'gifts'%}';
             }
         });
 

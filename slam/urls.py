@@ -93,7 +93,8 @@ urlpatterns = [
     url(r'^(?P<pk>\d+)/listgift$',login_required(list_gift.as_view()),name="listgift"),
     url(r'^deletegift/', delete_gift,name="deletegift"),
     url(r'^(?P<pk>\d+)/listusergift$',login_required(list_user_gift.as_view()),name="listusergift"),
-    url(r'^sendgift/',send_gift,name="sendgift"),    
+    url(r'^sendgift/',send_gift,name="sendgift"),
+    
 
     #Gift Receiver
     url(r'^giftreceiver/',login_required(GiftReceiver_view.as_view()),name="receiver"),

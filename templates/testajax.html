@@ -4,14 +4,10 @@
 <div class="d-flex flex-column justify-content-center" 
         style="height: 500px;">
 <div class="d-flex justify-content-center">
-<form method="post" action="{%url 'responseslam' %}">
+<form method="post" action="{%url 'deletegift' %}">
 {%csrf_token%}
 
-<input class="form-control col-sm-12" style="display:initial !important" type="text" placeholder="Template Name" name='pk'>
-<input class="form-control col-sm-12" style="display:initial !important" type="checkbox" placeholder="Template Name" name='ans[]' value=0>
-<input class="form-control col-sm-12" style="display:initial !important" type="checkbox" placeholder="Template Name" name='ans[]' value=1>
-<input class="form-control col-sm-12" style="display:initial !important" type="checkbox" placeholder="Template Name" name='id[]'  value=46>
-<input class="form-control col-sm-12" style="display:initial !important" type="checkbox" placeholder="Template Name" name='id[]'  value=47>
+<input class="form-control col-sm-12" style="display:initial !important" type="text" placeholder="Template Name" name='id'>
 
 <input type="submit">
 </form>

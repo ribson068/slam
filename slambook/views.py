@@ -539,7 +539,9 @@ class list_gift(ListView):
 @login_required
 @csrf_exempt
 def delete_gift(request):
-    candidate = Gift.objects.get(pk = int(request.POST['id']))
+    print(request.POST['id'])
+    print('Hi')
+    candidate = Gifts.objects.get(pk = int(request.POST['id']))
     candidate.delete()
     payload = {'success': True}
     return HttpResponse(json.dumps(payload), content_type='application/json')
