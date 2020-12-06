@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from django.db.models import Q
 
 from .models import (CharacterTemplate,CQuestion,
-                     RCTemplateCQuestions,Slams,Slam,
+                     RCTemplateCQuestions,Slams,Slam,GiftAnswer,
                      SlamChart,Answer,UserExtension,Gifts,Gift,GiftChart,Slam_Group,Contributor,Group_User_Add)
 import json
 from django.views.decorators.csrf import csrf_exempt
@@ -712,3 +712,23 @@ class Receiverbox(ListView):
         return results
     
     
+class edit_gift(ListView):
+    template_name="edit_gift.html"
+    context_object_name="clist"
+    def get_queryset(self):
+        tid=self.kwargs['pk']
+        k= Contributor.objects.get(pk=tid)
+        l=GiftChart.objects.get(pk=k.giftchart)
+        m=Gift.objects.filter(gift=l.gift)
+        k.isreadslam=True
+        k.save()
+        if not k.response:
+            queryset = {'chart':l, 
+                    'gift':m ,
+                    'contrib':k}
+        else:
+            queryset = {'chart': l, 
+                    'gift':GiftAnswer.objects.filter(giftchart=l.pk),
+                    'contrib':k}
+
+        return queryset
