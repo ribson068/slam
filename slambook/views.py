@@ -115,13 +115,20 @@ class cquestion_tlist(ListView):
     def get_queryset(self):
         # if 'pk' in self.kwargs:
         #     tid=self.kwargs['pk']
-        if self.request.user==User(pk=1):
-            queryset = {
-                    'normal': CQuestion.objects.filter(user=self.request.user)}
-        else:
+        if self.request.session.get('gift_flag'):
+            print("This the new version of settings")
+            del self.request.session['gift_flag']
             queryset = {'admin': CQuestion.objects.filter(user=User(pk=1)),
                     'normal': CQuestion.objects.filter(user=self.request.user)}
-
+        else:
+            if self.request.user==User(pk=1):
+                queryset = {
+                    'normal': CQuestion.objects.filter(user=self.request.user)}
+            else:
+                queryset = {'admin': CQuestion.objects.filter(user=User(pk=1)),
+                    'normal': CQuestion.objects.filter(user=self.request.user)}
+        
+            
         return queryset
 
 
@@ -460,6 +467,26 @@ class Gift_view(ListView):
     template_name="gifts.html"
     model=Gifts
     context_object_name="glist"
+    
+class Gift_Creator(ListView):
+    template_name="giftcreator.html"
+    model=GiftChart
+    context_object_name="clist"
+    def get_queryset(self):
+        print(GiftChart.objects.filter(fr=self.request.user))
+        return GiftChart.objects.filter(fr=self.request.user)
+
+
+class Gift_Creator_Content(ListView):
+    template_name="giftcreatorcontent.html"
+    model=Contributor
+    context_object_name="clist"
+    def get_queryset(self):
+        tid=self.kwargs['pk']
+        queryset = {'responded': Contributor.objects.filter(giftchart=tid,response=True),
+                    'read':Contributor.objects.filter(giftchart=tid,isreadgift=True),'pending':Contributor.objects.filter(giftchart=tid,isreadgift=False,response=False)}
+        
+        return queryset
 
 
 class GiftReceiver_view(ListView):
@@ -485,6 +512,7 @@ def generate_gift(request,pk=None):
         request.session['receiver']=request.POST['receiver']
         request.session['includeme']=request.POST['includeme']
         sl.save()
+        #request.session['gift_flag']=sl.pk
         t=RCTemplateCQuestions.objects.filter(user=request.user,ctemplate=request.POST['templateid'])
         for e in t:
             Gift.objects.get_or_create(user=request.user,gift=sl,cquestion=e.cquestion,typ=1)
@@ -532,16 +560,25 @@ class list_gift(ListView):
     model=Gift
     def get_queryset(self):
         tid=self.kwargs['pk']
+        self.request.session['gift_flag']=tid
         print(self.request.session['receiver'])
         print(self.request.session['includeme'])
         return Gift.objects.filter(user=self.request.user,gift=tid)
 
 @login_required
 @csrf_exempt
+def delete_gifts(request):
+    print(request.POST['id'])
+    candidate = Gifts.objects.get(pk = int(request.POST['id']))
+    candidate.delete()
+    payload = {'success': True}
+    return HttpResponse(json.dumps(payload), content_type='application/json')
+
+@login_required
+@csrf_exempt
 def delete_gift(request):
     print(request.POST['id'])
-    print('Hi')
-    candidate = Gifts.objects.get(pk = int(request.POST['id']))
+    candidate = Gift.objects.get(pk = int(request.POST['id']))
     candidate.delete()
     payload = {'success': True}
     return HttpResponse(json.dumps(payload), content_type='application/json')
@@ -572,6 +609,22 @@ class list_user_gift(ListView):
     template_name="list_user_gift.html"
     context_object_name="clist"
     model=User
+    def get_queryset(self):
+        return User.objects.exclude(pk=self.request.session['receiver'])
+
+
+@login_required
+@csrf_exempt
+def add_gift(request):
+    print(request.POST)
+    c=request.POST.getlist('id[]',0)
+    k=request.POST.getlist('pk',0)
+    if c and k:
+         for i in c:
+             Gift.objects.get_or_create(user=request.user,gift=Gifts(pk=k[0]),cquestion=CQuestion(pk=i),typ=1)
+    payload = {'success': True}
+    return HttpResponse(json.dumps(payload), content_type='application/json')
+
 
 
 

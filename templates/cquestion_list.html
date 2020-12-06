@@ -62,7 +62,12 @@
 <a href="#" class="templateq">
 
 {% if view.kwargs.slam%}
+
+{% ifequal view.kwargs.slam '1'%}
 <button type="button" class="btn btn-success" style="width:49%" >Add to Slam</button>
+{%else%}
+<button type="button" class="btn btn-success" style="width:49%" >Add to Gift</button>
+{%endifequal%}
 {%else%}
 <button type="button" class="btn btn-success" style="width:49%" >Add to Template</button>
 {%endif%}
@@ -105,14 +110,22 @@
         $.ajax({
             type: "POST",
             {% if view.kwargs.slam%}
+            {% ifequal view.kwargs.slam '1'%}
             url: "{%url 'addslam'%}",
+            {%else%}
+            url: "{%url 'addgift'%}",
+            {%endifequal%}
             {%else%}
             url: "{%url 'add_rcqt_t'%}",
             {%endif%}
             data: { id:favorite,pk:pk},
             success: function(response){
             {% if view.kwargs.slam%}
+            {% ifequal view.kwargs.slam '1'%}
                 location.href='{% url 'listslam' view.kwargs.pk%}';
+            {%else%}
+                location.href='{% url 'listgift' view.kwargs.pk%}';
+            {%endifequal%}
             {%else%}
                 location.href='{% url 'rcqt' view.kwargs.pk%}';
             {%endif%}

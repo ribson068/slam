@@ -134,12 +134,12 @@ class GiftChart(models.Model):
 
 class Contributor(models.Model):
     contrib=models.ForeignKey(User,on_delete=models.CASCADE,related_name='gto')
-    giftchart=models.ForeignKey(GiftChart,on_delete=models.CASCADE)
+    giftchart=models.ForeignKey(GiftChart,on_delete=models.CASCADE,related_name="gc")
     date_time=models.DateTimeField(auto_now_add=True, blank=True)
     rmess=models.TextField(blank=True)
     is_to=models.BooleanField(default=True)
     response=models.BooleanField(default=False)
-    isreadslam=models.BooleanField(default=False)
+    isreadgift=models.BooleanField(default=False)
 
 class GiftAnswer(models.Model):
     giftchart=models.ForeignKey(GiftChart,on_delete=models.CASCADE)

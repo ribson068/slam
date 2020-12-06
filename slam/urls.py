@@ -26,9 +26,11 @@ from slambook.views import (test_ajax,Questions,base_t,index_t,
                             Inbox,Sent,Response,delete_inbox,delete_sent
                             ,view_slam,edit_slam,response_slam,view_response
                             ,profile_view,Gift_view,generate_gift,search_user,GiftReceiver_view,
-                            Group_view,Delete_Group,EditSlamGroup,list_gift,delete_gift,
-                            gift_contributor,list_user_gift,send_gift,CreateSlamGroup,Add_user_to_Group,Group_Users_list,Add_User_to_Group)
-)
+                            Group_view,Delete_Group,EditSlamGroup,list_gift,delete_gifts,
+                            gift_contributor,list_user_gift,send_gift,
+                            CreateSlamGroup,Add_user_to_Group,Group_Users_list,
+                            Add_User_to_Group,add_gift,delete_gift,Gift_Creator,Gift_Creator_Content)
+
 
 from usermanagement import urls
 from django.contrib.auth.decorators import login_required
@@ -92,10 +94,13 @@ urlpatterns = [
     url(r'^searchuser/',login_required(search_user.as_view()),name="searchuser"),
     url(r'^filteruser/',login_required(search_user.as_view()),name="filteruser"),
     url(r'^(?P<pk>\d+)/listgift$',login_required(list_gift.as_view()),name="listgift"),
+    url(r'^deletegifts/', delete_gifts,name="deletegifts"),
     url(r'^deletegift/', delete_gift,name="deletegift"),
     url(r'^(?P<pk>\d+)/listusergift$',login_required(list_user_gift.as_view()),name="listusergift"),
     url(r'^sendgift/',send_gift,name="sendgift"),
-
+    url(r'^addgift/',add_gift,name="addgift"),
+    url(r'^giftcreator/',login_required(Gift_Creator.as_view()),name="giftcreator"),
+    url(r'^(?P<pk>\d+)/giftcreatorcontent$',login_required(Gift_Creator_Content.as_view()),name="giftcreatorcontent"),
 
     #Gift Receiver
     url(r'^giftreceiver/',login_required(GiftReceiver_view.as_view()),name="receiver"),

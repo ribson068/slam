@@ -1,5 +1,5 @@
 {%extends "base.html"%}
-
+<meta http-equiv="Pragma" content="no-cache">
 {%block base_block%}
 
 <style type="text/css"> 
@@ -31,7 +31,7 @@
 <a href="{%url 'listusergift' view.kwargs.pk %}" id="selecttemplate">
 <button type="button" class="btn btn-success" style="width:49%" >Send</button>
 </a>
-<a href="{%url 'listcquestion' view.kwargs.pk 1%}" id="selecttemplate">
+<a href="{%url 'listcquestion' view.kwargs.pk 2%}" id="selecttemplate">
 <button type="button" class="btn btn-warning" style="width:49%">Add Questions</button>
 </a>
 </div>

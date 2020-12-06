@@ -38,7 +38,7 @@
 </ul>
 </div>
 <div class="create-button float-right col-lg-8 col-xl-8">
-<a href="{% url 'createtemplate'%}">
+<a href="{% url 'generategift'%}">
 <button type="button" class="btn btn-primary btn-circle btn-xl">Create</button> 
 </a>
 </div>
@@ -61,7 +61,7 @@
      $(this).addClass("active");
      var lid=id.substring(4)
  $("#selecttemplate").attr('href',"{%url 'generateslam'%}?id="+lid)
-var changeq="{%url 'rcqt' 1234 %}".replace(/1234/, lid.toString())
+var changeq="{%url 'listgift' 1234 %}".replace(/1234/, lid.toString())
  $("#changequestions").attr('href',changeq)
  
 
@@ -73,7 +73,7 @@ var changeq="{%url 'rcqt' 1234 %}".replace(/1234/, lid.toString())
         var id = $(this).attr('id')
         $.ajax({
             type: "POST",
-            url: "{%url 'deletegift'%}",
+            url: "{%url 'deletegifts'%}",
             data: { id:id},
             success: function(response){
                 location.reload();
