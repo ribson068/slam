@@ -635,25 +635,28 @@ class gift_contributor(ListView):
     def get_queryset(self):
         return Contributor.objects.filter(contrib=self.request.user)
 
-class Add_user_to_Group(ListView):
-    group_name="Show_users.html"
-    context_object_name="ulist"
-    model=User
-    def post(self, request, *args, **kwargs):
-        query = request.POST.get('uservalue')
-        if query:
-             stuff = self.get_queryset().filter(Q(username__icontains=query)|Q(first_name__icontains=query)|Q(last_name__icontains=query))
-        else:
-             stuff = self.model.objects.all()
+# class Add_user_to_Group(ListView):
+#     group_name="Show_users.html"
+#     context_object_name="ulist"
+#     model=User
+#     def post(self, request, *args, **kwargs):
+#         query = request.POST.get('uservalue')
+#         if query:
+#              stuff = self.get_queryset().filter(Q(username__icontains=query)|Q(first_name__icontains=query)|Q(last_name__icontains=query))
+#         else:
+#              stuff = self.model.objects.all()
 
-        return render(request, self.template_name, {self.context_object_name: stuff})
+#         return render(request, self.template_name, {self.context_object_name: stuff})
 
 class Group_Users_list(ListView):
     template_name="group_ulist.html"
     context_object_name="groupuserslist"
     model=Group_User_Add
     def get_queryset(self):
-        return Group_User_Add.objects.filter(user=self.request.user)
+        gid=self.kwargs['pk']
+        print(gid)
+        print(Group_User_Add.objects.filter(group=gid))
+        return Group_User_Add.objects.filter(group=gid)
 
 class Add_User_to_Group(ListView):
     template_name="AddUsertoGroup.html"
@@ -665,3 +668,47 @@ class Add_User_to_Group(ListView):
              stuff = self.get_queryset().filter(Q(username__icontains=query)|Q(first_name__icontains=query)|Q(last_name__icontains=query))
         else:
              stuff = self.model.objects.all()
+             return render(request, self.template_name, {self.context_object_name: stuff})
+         
+@login_required
+@csrf_exempt
+def add_user_group(request):
+    print(request.POST)
+    c=request.POST.getlist('id[]',0)
+    k=request.POST.getlist('pk',0)
+    if c and k:
+         for i in c:
+             Group_User_Add.objects.get_or_create(user=User(pk=i),group=Slam_Group(pk=k[0]))
+    payload = {'success': True}
+    return HttpResponse(json.dumps(payload), content_type='application/json')
+
+@login_required
+@csrf_exempt
+def delete_user(request):
+    user = Group_User_Add.objects.get(pk = int(request.POST['id']))
+    user.delete()
+    payload = {'success': True}
+    return HttpResponse(json.dumps(payload), content_type='application/json')
+
+
+class Receiver(ListView):
+    template_name="receiver.html"
+    context_object_name="receiverlist"
+    model=GiftChart
+    def get_queryset(self):
+        results = GiftChart.objects.filter(re=self.request.user).order_by('-date_time')
+        print(results)
+        return results
+    
+class Receiverbox(ListView):
+    template_name="receiver-box.html"
+    context_object_name="receiverlistbox"
+    model=Contributor
+    def get_queryset(self):
+        gcid=self.kwargs['pk']
+        print(gcid)
+        results = Contributor.objects.filter(giftchart=gcid).order_by('-date_time')
+        print(results)
+        return results
+    
+    

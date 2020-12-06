@@ -38,10 +38,10 @@
       <h5 class="mb-1">{{c.username}}</h5>
       <small>{{c.date_joined}}</small>
       
-      <div class="form-check">
-    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-    <label class="form-check-label" for="exampleCheck1">Click me to Add</label>
-  </div>
+      <!--<div class="form-check">-->
+   <!-- <input type="checkbox" class="form-check-input" id="exampleCheck1">-->
+    <!--<label class="form-check-label" for="exampleCheck1">Click me to Add</label>-->
+  <!--</div>-->
   
     </div>
     <p class="mb-1">{{c.first_name}} {{c.last_name}}</p>
@@ -89,10 +89,14 @@
 
 <footer class="fixed-bottom ">
 <div class="container">
-<a href="#" id="selecttemplate">
-<button  type="button" class="btn btn-success" style="width:49%" >Select User</button>
+
+
+
+
+<a href="#" class="templateq">
+<button  type="button" class="btn btn-success" style="width:49%" >Add User to Group</button>
 </a>
-<a href="{%url 'generategift'%}">
+<a href="{%url 'slamgroup'%}">
 <button type="button" class="btn btn-light" style="width:49%">Cancel</button>
 </a>
 </div>
@@ -102,32 +106,24 @@
  $(document).ready(function() {
       $(".listtemplate").click(function() {
         var id = $(this).attr('id')
-        $(".listtemplate").removeClass('active')
      $(this).toggleClass("active"); 
      var lid=id.substring(4)
-var changeq="{%url 'generategift' 1234 %}".replace(/1234/, lid.toString())
- $("#selecttemplate").attr('href',changeq)
  });
 
-
- $("#sendSlam").click(function() {
- 
- var favorite = [];
+    $(".templateq").click(function() {
+       var favorite = [];
  $(".active .user").each(function() {
     favorite.push($(this).val());
 });
-if(favorite.length>0){
-
-var txt = $("#message-text").val(); 
-
-        
-
-
-}
-else
-{
-alert("Please select a user")
-}
+        pk={{view.kwargs.pk}}
+        $.ajax({
+            type: "POST",
+            url: "{%url 'addgroupuser'%}",
+            data: { id:favorite,pk:pk},
+            success: function(response){
+                location.href='{% url 'listgroupusers' view.kwargs.pk%}';
+            }
+        });
         return false;
     });
 
