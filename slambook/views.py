@@ -722,7 +722,7 @@ class edit_gift(ListView):
     def get_queryset(self):
         tid=self.kwargs['pk']
         k= Contributor.objects.get(pk=tid)
-        l=GiftChart.objects.get(pk=k.giftchart)
+        l=GiftChart.objects.get(pk=k.giftchart.pk)
         m=Gift.objects.filter(gift=l.gift)
         k.isreadslam=True
         k.save()
