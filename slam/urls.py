@@ -15,9 +15,12 @@ Including another URLconf
 """
 from django.conf.urls import url,include
 from django.contrib import admin
-from slambook.views import (test_ajax,Questions,base_t,index_t,character_tlist,delete_char_t,EditTemplateName,CreateTemplate,main_t,cquestion_tlist,delete_cquestion_t,EditCQuestion,CreateCQuestion,delete_RCQT_t,RCQT_tlist,add_RCQT_t,slams_list,CreateSlams,EditSlamsName,delete_slams,list_slam,delete_slam,add_slam,generate_slam,list_user,send_slam,Inbox,Sent,Response,delete_inbox,delete_sent,view_slam,edit_slam,response_slam,view_response,profile_view,Gift_view,generate_gift,search_user,GiftReceiver_view,delete_gifts,Add_User_to_Group,add_gift,Gift_Creator,Gift_Creator_Content,Group_view,Delete_Group,EditSlamGroup,list_gift,delete_gift,gift_contributor,list_user_gift,send_gift,CreateSlamGroup,Group_Users_list,add_user_group,delete_user,Receiver,Receiverbox)
+from slambook.views import (test_ajax,Questions,base_t,index_t,character_tlist,delete_char_t,EditTemplateName,CreateTemplate,main_t,cquestion_tlist,delete_cquestion_t,EditCQuestion,CreateCQuestion,delete_RCQT_t,RCQT_tlist,add_RCQT_t,slams_list,CreateSlams,EditSlamsName,delete_slams,list_slam,delete_slam,add_slam,generate_slam,list_user,send_slam,Inbox,Sent,Response,delete_inbox,delete_sent,view_slam,edit_slam,response_slam,view_response,profile_view,Gift_view,generate_gift,search_user,GiftReceiver_view,delete_gifts,Add_User_to_Group,add_gift,Gift_Creator,Gift_Creator_Content,Group_view,Delete_Group,EditSlamGroup,list_gift,delete_gift,gift_contributor,list_user_gift,send_gift,CreateSlamGroup,Group_Users_list,add_user_group,delete_user,Receiver,Receiverbox,change_password)
 from usermanagement import urls
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import views
+
+
 
 
 urlpatterns = [
@@ -111,5 +114,138 @@ urlpatterns = [
     
     url(r'^receiver/',login_required(Receiver.as_view()),name="receiver"),
     url(r'^(?P<pk>\d+)/receiverbox/',login_required(Receiverbox.as_view()),name="receiverbox"),
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    url(r'^password/',change_password,name="change_password"),
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ]
