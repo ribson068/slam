@@ -21,6 +21,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import views
 
 
+from slambook.views import (response_gift)
+
 
 
 urlpatterns = [
@@ -199,8 +201,8 @@ urlpatterns = [
 
 
     url(r'^(?P<pk>\d+)/edit_gift/',login_required(edit_gift.as_view()),name="edit_gift"),
-
-
+    url(r'^responsegift/',response_gift,name="responsegift"),
+    
 
 
 

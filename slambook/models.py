@@ -142,7 +142,7 @@ class Contributor(models.Model):
     isreadgift=models.BooleanField(default=False)
 
 class GiftAnswer(models.Model):
-    giftchart=models.ForeignKey(GiftChart,on_delete=models.CASCADE)
+    contrib=models.ForeignKey(Contributor,on_delete=models.CASCADE)
     cquestion=models.ForeignKey(CQuestion,on_delete=models.CASCADE)
     ans=models.BigIntegerField(blank=True)
     date_time=models.DateTimeField(auto_now_add=True, blank=True)

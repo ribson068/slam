@@ -141,7 +141,7 @@
 <footer class="fixed-bottom ">
 <div class="container">
 
-{% if clist.chart.response%}
+{% if clist.contrib.response%}
 <button type="button" class="btn btn-light" style="width:49%">Response Sent</button>
 {%else%}
 <button  type="button" class="btn btn-success" style="width:49%" data-toggle="modal" data-target="#exampleModalCenter" >Send RESPONSE!</button>
@@ -191,7 +191,7 @@ var txt = $("#message-text").val();
 pk={{view.kwargs.pk}}
         $.ajax({
             type: "POST",
-            url: "{%url 'responseslam'%}",
+            url: "{%url 'responsegift'%}",
             data: { id:favorite,pk:pk,mess:txt,ans:answer},
             success: function(response){
                 alert("Sent Successfully")
