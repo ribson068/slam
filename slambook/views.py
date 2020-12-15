@@ -711,7 +711,7 @@ class Receiverbox(ListView):
     def get_queryset(self):
         gcid=self.kwargs['pk']
         print(gcid)
-        results = Contributor.objects.filter(giftchart=gcid).order_by('-date_time')
+        results = Contributor.objects.filter(giftchart=gcid,response=True).order_by('-date_time')
         print(results)
         return results
     
@@ -732,7 +732,7 @@ class edit_gift(ListView):
                     'contrib':k}
         else:
             queryset = {'chart': l, 
-                    'gift':GiftAnswer.objects.filter(contrib=l.pk),
+                    'gift':GiftAnswer.objects.filter(contrib=k.pk),
                     'contrib':k}
 
         return queryset

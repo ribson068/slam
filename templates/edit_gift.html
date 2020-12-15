@@ -68,7 +68,6 @@
 {% for c in clist.gift%}
 
 
-
   <a href="#" id="list{{c.pk}}" class="list-group-item list-group-item-action flex-column align-items-start  listtemplate">
     <div class="d-flex w-100 justify-content-between">
       {%ifequal c.cquestion|default:""|slice:"-1"  "?" %}
@@ -146,7 +145,7 @@
 {%else%}
 <button  type="button" class="btn btn-success" style="width:49%" data-toggle="modal" data-target="#exampleModalCenter" >Send RESPONSE!</button>
 {%endif%}
-<a href="{%url 'inbox'%}" id="selecttemplate">
+<a href="{%url 'index_t'%}" id="selecttemplate">
 <button type="button" class="btn btn-secondary" style="width:49%">Back</button>
 </a>
 </div>
